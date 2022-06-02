@@ -19,7 +19,7 @@ var request = require("request");
 var chai = require("chai");
 const { not } = require("should");
 var expect = chai.expect;
-var urlBase = "https://api.magicthegathering.io/v1";
+
 var myurlBase="https://api.tmsandbox.co.nz/v1/Categories/6327/Details.json";
 
 
@@ -91,48 +91,6 @@ describe("magicthegathering.io API test",function(){
   });
 
 
-  /*
 
-  it("Should receive the card 'Heedless One' ",function(done){
-    // lets check the name and artists name
-    request.get(
-      {
-       // url : myurlBase + "/cards?name=Heedless One" 
-        url : myurlBase
-      },
-      function(error, response, body){
-
-        // object 2 json
-        var _body = {};
-        try{
-          _body = JSON.parse(body);
-        }
-        catch(e){
-          _body = {};
-        }
-
-        // sucesso (200)?
-        //expect(response.statusCode).to.equal(200);
-
-        // do we have cards?
-        if( _body.should.not.have.property('cards') ){
-          // do we have at least one?
-       //   expect(_body.cards).to.not.have.lengthOf.at.least(1);
-
-          // check the first card
-          if(_body.cards[0].should.not.have.property('artist')){
-     //       expect(_body.cards[0].artist).to.equal('Mark Zug');
-          }
-          if(_body.cards[0].should.have.property('name')){
-     //       expect(_body.cards[0].name).to.not.equal('Heedless One');
-          }
-        }
-
-        done(); // callback
-      }
-    );
-  });
-
-*/
 
 });
