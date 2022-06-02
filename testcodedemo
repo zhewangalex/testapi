@@ -1,0 +1,138 @@
+/**
+ * API testing example
+ * API used
+ * @see https://magicthegathering.io/
+ *
+ * This example is part of the post
+ * @see https://medium.com/@hdeodato/teste-autom%C3%A1tico-de-api-rest-usando-com-node-js-mocha-chai-6aec4613d100
+ *
+ * @author Henrique Deodato
+ * @see twitter.com/hdeodato
+ */
+
+/**
+ * Load the needed libraries
+ * Mocha is not here, since it is the test runner 
+ */
+var should = require("should");
+var request = require("request");
+var chai = require("chai");
+const { not } = require("should");
+var expect = chai.expect;
+var urlBase = "https://api.magicthegathering.io/v1";
+var myurlBase="https://api.tmsandbox.co.nz/v1/Categories/6327/Details.json";
+
+
+// Create our test case, we need to inform the description
+describe("magicthegathering.io API test",function(){
+  // the it function do the test, in this case, the endpoint /cards, that should return 100 cards max
+  it("to test the details json api",function(done){
+    request.get(
+      {
+  //      url : myurlBase + "/cards"
+        url : myurlBase
+      },
+      function(error, response, body){
+
+        // convert the response to json
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+
+        // using chai expect function, lets check the result
+      //  expect(response.statusCode).to.equal(200);
+
+        // now, we check if the property cards is avaliable
+        if( _body.should.have.property('Name') ){
+          // if true, lets check the length
+       //   expect(_body.cards).to.not.have.lengthOf.at.most(100);
+       expect(_body.Name).to.equal('Carbon credits');
+       console.log('test pass: Name is Carbon credits')
+
+
+        }
+
+
+        if( _body.should.have.property('CanRelist') ){
+          // if true, lets check the length
+       //   expect(_body.cards).to.not.have.lengthOf.at.most(100);
+            expect(_body.CanRelist).to.be.true
+      console.log('test pass: CanRelist is True')
+
+
+        }
+
+
+        
+        if( _body.should.have.property('Promotions') ){
+          // if true, lets check the length
+       //   expect(_body.cards).to.not.have.lengthOf.at.most(100);
+         //   expect(_body.CanRelist).to.be.true
+     // console.log('test pass: CanRelist is True')
+          expect(_body.Promotions[1].Name).to.equal('Gallery');
+          console.log('test pass: Promotions attribute name is Gallery ')
+          expect(_body.Promotions[1].Description).to.equal('Good position in category');
+          console.log('test pass: The Promotions element with Name = Gallery has a Description that contains the text Good position in category')
+
+
+
+ 
+
+        }
+
+
+        done(); // callback the test runner to indicate the end...
+      }
+    );
+  });
+
+
+  /*
+
+  it("Should receive the card 'Heedless One' ",function(done){
+    // lets check the name and artists name
+    request.get(
+      {
+       // url : myurlBase + "/cards?name=Heedless One" 
+        url : myurlBase
+      },
+      function(error, response, body){
+
+        // object 2 json
+        var _body = {};
+        try{
+          _body = JSON.parse(body);
+        }
+        catch(e){
+          _body = {};
+        }
+
+        // sucesso (200)?
+        //expect(response.statusCode).to.equal(200);
+
+        // do we have cards?
+        if( _body.should.not.have.property('cards') ){
+          // do we have at least one?
+       //   expect(_body.cards).to.not.have.lengthOf.at.least(1);
+
+          // check the first card
+          if(_body.cards[0].should.not.have.property('artist')){
+     //       expect(_body.cards[0].artist).to.equal('Mark Zug');
+          }
+          if(_body.cards[0].should.have.property('name')){
+     //       expect(_body.cards[0].name).to.not.equal('Heedless One');
+          }
+        }
+
+        done(); // callback
+      }
+    );
+  });
+
+*/
+
+});
