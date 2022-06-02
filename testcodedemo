@@ -20,7 +20,7 @@ var chai = require("chai");
 const { not } = require("should");
 var expect = chai.expect;
 
-var myurlBase="https://api.tmsandbox.co.nz/v1/Categories/6327/Details.json";
+var myurlBase="https://api.tmsandbox.co.nz/v1/Categories/6327/Details.json?catalogue=false";
 
 
 // Create our test case, we need to inform the description
